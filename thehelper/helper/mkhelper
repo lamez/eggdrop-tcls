@@ -1,0 +1,56 @@
+#!/usr/bin/perl
+
+$helper_ver = "v1.00.00";
+$tot = 0;
+
+print "TheHelper data compiler written by David Proper (DrN)\n";
+print "Copyright 2001 Radical Computer Systems - All Rights Reserved\n";
+print "To be used with thehelper.tcl for Eggdrop Bots\n";
+print "\n";
+
+if (@ARGV > 0) {
+        $fname = $ARGV[0];
+        $hpath = $ARGV[1];
+} else {
+          print "Calling Syntax: mkhelper datafilename path\n";
+          print "EX: mkhelper pirch.dat ~/help/pirch/\n";
+          exit;
+         }
+
+print "Compiling $fname to $hpath\n";
+open (DATA, "$fname"); @data = <DATA>; close(DATA);
+open(INDEX, ">${hpath}index");
+
+
+foreach $line(@data) {
+                      chomp $line;
+#                      print "$line\n";
+                      $cmd = substr($line,0,1);
+                      $line2 = substr($line,1,length($line)-1);
+
+ if ($cmd eq "-") {print INDEX "$line2\n";}
+ if ($cmd eq "?") {
+                   if ($tot ne 0) {close(Q);}
+                   ++$tot;
+                   open(Q, ">${hpath}$tot");
+                   print INDEX padleft("$tot"," ","3") . ". $line2\n";
+                   print Q padleft("$tot"," ","3") . ". $line2\n";
+                   print " " . padleft("$tot"," ","3") . ". $line2\n";
+                  }
+if ($cmd eq " ") {print Q "      $line2\n";}
+                     }
+close(INDEX);
+
+
+
+sub padleft { # padleft("the string ","_","55")
+(my $text, my $pad, my $count) = @_;
+
+$line = "";
+$_loop = length($text);
+while ($_loop < $count) {$_loop = $_loop + 1; $line = "${line}${pad}";}
+
+#return "${text}" . substr($line,0,$count - length(line));
+return "$line${text}";
+}
+

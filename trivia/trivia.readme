@@ -1,0 +1,213 @@
+file:	trivia.tcl
+ver:	1.2.0 beta, 27/12/01
+author:	graeme donaldson
+e-mail:	gpd@planetpastel.com
+www:	http://www.geocities.com/triviatcl/
+irc:	Souperman on #trivia-game @ irc.blabber.net (sometimes undernet)
+
+------------------------------------
+
+contents
+
+1. general info
+2. history
+3. installation & use
+4. known bugs/issues
+5. conditions of use
+6. thanks
+
+------------------------------------
+
+1. general info 
+
+i made this script because i couldn't find a trivia game for irc which worked 
+the way i wanted. i first wrote a trivia game script for mirc which more or 
+less looked like the one used on #trivia on irc.blabber.net. i then decided 
+to run my own trivia game using eggdrop instead. 
+
+i'd initially released version 1.01 and 1.02, then decided to leave it alone. 
+however, after quite a lot of positive feedback and suggestions, i've decided 
+to continue the development of the script. it seems there are a large number 
+of people who want a good trivia bot, so development will continue until i 
+either get tired of it, or i don't have the time for it any longer. 
+
+this script was developed on eggdrop 1.6.4+. while it should work on any of 
+the 1.6 series, i have not tested it on anything below 1.6.4. also note that 
+i am by no means any kind of tcl expert, so i expect that there may be more 
+efficient/correct ways of doing some things in places. if you have any tips 
+you'd like to share, you can contact me at the e-mail address at the top of 
+this file. =) 
+
+------------------------------------
+
+2. history
+
+dd/mm/yy   ver    comments
+27/12/01   1.2.0  * fixed the target lookup command barfing if you were ranked 
+           beta     first.
+                  * cleaned up a lot of code after rewriting most of the score 
+                    tracking in the previous release.
+                  * added option to show only the score of the person who 
+                    answered the question, instead of the top 3 and everyone 
+                    on the channel. this is useful on channels with more than 
+                    20 players at a time.
+                  * fixed problem when you disabled one or more colours by 
+                    setting it to "". the ascii character for colour was still 
+                    being sent, causing some problems with text which had 
+                    numbers in it.
+                  * added timer to disable the !hint command for x seconds 
+                    (default 10) after using it. this prevents cases where 2 
+                    people type !hint together and the bot gives 2 hints.
+                  * fixed using the !hint command on the last hint causing 
+                    the question to be skipped. you cannot use !hint if it's 
+                    the last hint.
+                  * added option to have the bot generate an html page which
+                    lists the people on the channel as their scores, as well
+                    as listing all the scores from top to bottom by rank.
+                    at the moment this is very basic and can definitely be
+                    improved a lot. i need feedback on this to make it better.
+
+26/12/01   1.1.0  * changed version number structure. new structure is a.b.c,
+                    where a is the major version number, b is the minor 
+                    version number and c is the bugfix release number.
+                  * added option to customise colours. you can also disable 
+                    them.
+                  * added option to show the answer if nobody gets the question 
+                    right. the answer will be shown if the question "expires", 
+                    not if the question is skipped.
+                  * added option to show how long person took to answer the 
+                    question correctly.
+                  * changed behaviour of startup checks. the bot will no longer 
+                    "die" if an error is detected. instead, the script will 
+                    stop loading when an error is encountered and give the 
+                    reason in the log.
+                  * changed help text to only show how to start the game (on 
+                    join message and help reply) if user has required flags.
+                  * added option to send private messages using /msg instead 
+                    of /notice.
+                  * added /msg command to display channel rules. both the 
+                    command and the actual rules are customisable.
+                  * fixed various case issues, e.g. if "joesoap" has 2 points, 
+                    then changes nick to JoeSoap and gets another correct, 
+                    there would be a score of 3 for "joesoap" and a score of 
+                    1 for "JoeSoap". such a stupid bug but it was tricky to fix.
+                  * fixed issues with people having [, {, etc. in their nicks 
+                    where scoring would be duplicated similar to the case bug 
+                    above. also very tricky to fix. this bug and the previous 
+                    one resulted in me having to rethink and recode most of the 
+                    stuff relating to scoring. expect bugs! ;o)
+                  * removed some redundant code and consolidated some 
+                    duplicated stuff into procs.
+
+04/08/01   v1.02  * added auto disable after x unanswered questions. (set 
+                    tgmaxmissed).
+                  * removed check on load if channel set for the game is a 
+                    valid channel. was causing some problems.
+                  * added option to use bold in messages or not. 
+                    (set tgusebold 1/0).
+                  * added option to disable winning streaks. 
+                    (set tgstreakmin 0).
+
+28/07/01   v1.01  * first public release.
+
+??/07/01   -      * decided to abandon mirc script in favour of eggdrop. 
+                    installed an eggdrop and started to learn tcl.
+
+??/06/01   -      * wrote a trivia script for mirc. total development time was 
+                    approximately 24 hours over a period of about 3 weeks.
+
+------------------------------------
+
+3. installation & use
+
+to use the script:
+  * extract all the files in the archive to a directory on your shell.
+  * edit the trivia.tcl file to customise the settings to your liking.
+  * add the script to your bot's config. see the eggdrop documentation if you 
+    don't know how to do this.
+  * make sure that alltools.tcl 1.6 or higher is loaded in your bot's config. 
+    also, make sure that it loads before trivia.tcl.
+  * make sure that the file you set for the question/answers database exists, 
+    or the script will not load.
+  * make sure that you only set one channel as your trivia channel. if not, 
+    the script will fail to load.
+  * if this is a first time installation, rehash your bot. if you're upgrading 
+    from an older version, restart the bot instead, as a rehash does not clear 
+    the current binds and i may have made changes to them. also, if you're 
+    upgrading from an older version, reset your bot's scores.
+
+once you've done all this, you can start the game by typing the start command 
+on the channel you specified.
+
+note: the question database included is for example purposes. add more 
+questions by following the format of the example file, i.e. one question/answer 
+pair per line, answer first, then question, seperated by a '|'. it does not 
+need to be in any order, i just find it easier to prevent adding a duplicate 
+question if my database is sorted alphabetically by answer. 
+
+the default channel commands (and flags required for their use) are: 
+
+command   flags   description
+!hint     o|o     gives another hint to the current question.
+!skip     o|o     skips the question and selects a new one.
+!start    -|-     starts the game (if it's not running).
+!stop     o|o     stops the game (if it's running).
+
+the default /msg commands (and flags required for their use) are: 
+
+command   flags   description
+?         n/a     gives help.
+error     n/a     report errors in questions/answers.
+reset     n|n     reset score table.
+rules     n/a     show the channel's rules (customisable).
+score     n/a     looks up someone's score.
+target    n/a     tells you who is ranked one above you.
+
+------------------------------------
+
+4. known bugs/issues 
+
+the following are bugs and/or issues i am aware of, but have not yet resolved:
+
+  * if your answers have non-english characters such as ñ ö ë ê ä in them, the 
+    bot does not recognise a correct answer. i think this is related to the 
+    issue regarding unicode characters as documented in eggdrop's 
+    doc/known-problems file. i'm not an expert, so i could be wrong. 
+    quick fix: make sure your answers don't have any high-ascii characters in 
+    them. 
+
+------------------------------------
+
+5. conditions of use 
+
+you have my permission to: 
+  * use the script "as is" 
+  * make any modifications you want to. if you distribute a modified version 
+    of the script, please give me credit somewhere (in a readme file or 
+    whatever), and include a link to the script's home page (see top of file). 
+you do not have my permission to: 
+  * "rip" the script and claim it as your own work. i know there's no way i 
+    can really prevent you from doing it, but if you do, i hope you feel really 
+    really rotten about it. :-p 
+  * make money from this script. at all. ever. ;o) 
+
+------------------------------------
+
+6. thanks 
+
+thanks goes to...
+  * the helpful folks on undernet's #eggdrop for answering my questions. 
+    especially when i've been up late and am not thinking straight. you guys 
+    have tons of patience. =) 
+  * the forum regulars on egghelpforum.com for being such helpful souls. (so 
+    helpful in fact that i've never had to post a question because i invariably 
+    find it's already been answered). 
+  * the guy who originally wrote the mirc trivia script as used on blabber.net 
+    and various other places. 
+  * prince_of_chaos @ irc.blabber.net: assisting with beta testing. 
+  * stuuu @ irc.xnet.org, #xnet-trivia & #gimp: bug reports and suggestions. 
+  * nightshade @ irc.axenet.org, #trivia! & #trance: tons of suggestions. 
+  * and of course, the biggest thanks goes to you, for being smart enough to 
+    use the best damn trivia script available for eggdrop! hehehehehe. 
+
+eof

@@ -1,0 +1,179 @@
+           _______ __           _______         __
+          |_     _|  |--.-----.|   |   |.-----.|  |.-----.-----.----.
+            |   | |     |  -__||       ||  -__||  ||  _  |  -__|   _|
+            |___| |__|__|_____||___|___||_____||__||   __|_____|__|
+                                                   |__|
+  -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+                        TheHelper v1.00 By David Proper
+         Copyright 2002 Radical Computer Systems - All Rights Reserved
+
+"Wow, another real doc file." - Yea, don't get used to them.
+
+"You still hate writting doc files, don't you?" - What do you think?
+
+"Heh. What's this script do" - It's like a FAQ server.
+
+"Cool." - If you say so.
+
+
+-Files Included:----------------------------------------------------------------
+thehelper.doc        - Uh, this file.
+thehelper.hst        - History file
+thehelper???.tcl     - The actuall TCL script
+mkhelper             - TheHelper *.dat compiler
+irc.dat              - Sample help file, general IRC
+pirch.dat            - Sample help file, general Pirch client
+
+Here's what ya do with them:
+
+-[THEHELPER.DOC]----------------------------------------------------------------
+You can delete this file when you're done with it.
+
+-[THEHELPER.HST]----------------------------------------------------------------
+Delete this too after looking at it. Will tell you the version change
+history and shit.
+
+-[THEHELPER???.TCL]-------------------------------------------------------------
+Put this in your scripts directory and add a source line to load it to the
+main eggdrop config file.
+
+-[MKHELPER]---------------------------------------------------------------------
+Put this where You keep the *.dat files for easy access.
+
+-[*.DAT]------------------------------------------------------------------------
+Put all the *.dat files in the directories referenced by $helperfiles
+(more on $helperfiles shortly).
+
+
+ +----------------------------------------------------------------------------+
+ |                              Using the script                              |
+ +----------------------------------------------------------------------------+
+List commands:             !helper
+List help topics:          !helper list
+Show index:                !helper topic
+Show Answer #1:            !helper topic 1
+o For OPs only:
+Show Answer #1 To channel: !helper topic 1 #
+Show Answer #1 To Nick:    !helper topic 1 Nick
+
+
+ +----------------------------------------------------------------------------+
+ |                       Script setup and configuration                       |
+ +----------------------------------------------------------------------------+
+Unlike most of my scripts, this one will need some configuration and setup
+before it will run correctlly. The following areas need attention.
+
+-Main Script - cmdchar_ variable------------------------------------------------
+Set this variable to a trigger charactor. Default is !. This will be
+prefixed to any public commands. 
+
+EX: If $cmdchar_ is set to !, then main script trigger is: !helper
+    If $cmdchar_ is set to *, then main script trigger is: *helper
+
+-Main Script - helperfiles variable---------------------------------------------
+The $helperfiles variable is an array that includes all your helper
+files. The format is pretty stright forward:
+
+ set helperfiles {
+  {trigger_name directory_path description}
+                 }
+
+Example using included help files:
+
+set helperfiles {
+ {pirch /home/eggdrop/help/pirch/   Questions about the Pirch IRC client}
+ {irc   /home/eggdrop/help/irchelp/ General Questions about IRC}
+}
+
+This tells the script there is 2 helper files avaliable. A general Pirch
+client help that is stored in /home/eggdrop/help/pirch/ and is accessed
+via the pirch trigger, and a general irc help in the
+/home/eggdrop/help/irchelp/ directory with the irc trigger.
+
+-*.dat file format--------------------------------------------------------------
+The helper files are converted from a flat file that can be easily
+changed.
+
+The compiler is mkhelper.
+
+The format of the datafile is as follows:
+ o Lines starting with a - is added to the main index
+ o Lines starting with a ? begin a question
+ o Lines starting with a space are added to the question file
+
+Example:
+-This is an example help file
+?Question 1
+ This would be the answer to question 1
+?Question 2
+ This would be the answer to question 2
+
+
+
+
+
+That should be enough. Now the stuff no one reads.. If you like this or
+any of the other programs/scripts I've done that you have or have seen,
+please send me something for my time and testing.
+
+If you wish to donate money or hardware for the web sites/BBS, mail to:
+
+                                  David Proper
+                               7929 Caribu Drive
+                           Corpus Christi, TX  78414
+
+                      Or via PayPal to rainbows@stx.rr.com
+
+
+
+                      Internet E-Mail: DProper@chaotix.net
+       Use pgpkey in the subject to get my Petty Good Privacy Public Key
+
+                           Visit the RCS web site at
+                        http://www.chaotix.net:3000/rcs
+                                 or FTP Site at
+                            ftp.chaotix.net/pub/RCS
+
+       You can also find news of releases on UseNet: alt.irc.bots.eggdrop
+
+ To subscribe to the RCS mailing list: mail majordomo@chaotix.net and in
+  the BODY of message, type  subscribe rcs-list
+
+
+                          Linked IRC Support Channels:
+                                 --=-==#==-=--
+                       #RCS on UnderNet (irc.undernet.org)
+                          #RCS on DALnet (irc.DAL.net)
+                            #RCS on EFnet (irc.rt.ru)
+                     (Not sure if this will be perm or not)
+                      #RCS on GalaxyNet (irc.galaxynet.org)
+                     (Not sure if this will be perm or not)
+
+                                   FTP Sites
+-------------------------------------------------------------------------------
+ FTP Site                   | Directory                     | Type
+ ---------------------------+-------------------------------+-----
+ ftp.chaotix.net            | /pub/RCS                      |  1
+ ftp.eggheads.org           | Various                       |  2
+ drn.realmweb.org           | /drn                          |  2
+
+                                   Web Sites
+-------------------------------------------------------------------------------
+ Web Site URL                                          | Type
+ ------------------------------------------------------+------
+ http://www.chaotix.net:3000/rcs                       |  1
+ http://www.eggheads.org                               |  2
+ http://www.botcentral.net                             |  2
+
+Type Legend:
+ 1 : Main Support Site. First Release Point
+ 2 : Secondary Support Site. Sent new releases as soon as they are
+     released. May have some lag time before they're online
+
+
+
+
+                        6:07:45 PM Wednesday, 04/11/2002
+
+Guess that's the end of this file. Increase the peace. Later.
+

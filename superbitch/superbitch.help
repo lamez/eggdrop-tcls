@@ -1,0 +1,28 @@
+%{help=superbitch}%{+m|m}
+###  %bchanset%b <channel> superbitch-<op/user> <number>
+     This sets the Super Bitch settings on the given channel
+%{+m|m}
+	%bsuperbitch-user%b   defines how the bot should punish manually oped users
+                       0 turn off,
+                       1 for deop opped user
+                       2 for deop and +d opped user
+                       3 for deop, +d and kick opped user
+                       4 for deop, chattr +d, kick and perm ban opped user
+	%bsuperbitch-op%b     defines how the bot should punish bad ops
+                       0 turn off,
+                       1 for deop op (Non +m and +n Users)
+                       2 for deop, +d op (Non +m and +n Users)
+                       3 for deop, +d, kick op (Non +m and +n Users)
+                       4 for deop, chattr +d, kick, perm ban op (Non +m and +n Users)
+                       5 for deop op (Non +n Users)
+                       6 for deop, +d op (Non +n Users)
+                       7 for deop, +d, kick op (Non +n Users)
+                       8 for deop, chattr +d, kick, perm ban op (Non +n User)
+                       9 for deop op (All Ops)
+%{+n|n}
+                  (WARNING THE FOLLOWING WILL REMOVE +n OWNERS!}
+                       10 for deop, +d op (All Ops)
+                       11 for deop, +d, kick op (All Ops)
+                       12 for deop, chattr +d, kick, perm ban op (All Ops)
+%{+n|n}
+See also: %{+n}+chan, -chan,%{+n|n} chansave, chanload, chanset, chaninfo

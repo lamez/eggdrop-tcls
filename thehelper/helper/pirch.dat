@@ -1,0 +1,347 @@
+-Pirch FAQ v1.00
+-To use this, type   !pirchhelp #   (or !ph #)
+-Where # is the number of the question you want answered:
+-(For Example:  !pirchhelp 4  to read answer to question number 4)
+?About this TCL
+ This TCL was written by David Proper (Dr. Nibble [DrN])
+ It's copyright 1998 Radical Computer Systems
+ The RCS Homepage with all thier releases can be found at
+ http://www.chaotix.net/rcs/
+
+?System Requirments
+ SYSTEM REQUIREMENTS - 16 Bit
+ Microsoft WindowsÆ 3.x or WindowsÆ 95 System 
+ 4mb RAM 
+ Winsock i.e. Trumpet Winsock, Microsoft WindowsÆ 95 Dialup Networking, etc... 
+ -
+ SYSTEM REQUIREMENTS - Pirch98
+ Microsoft WindowsÆ 95/98 or WindowsÆ NT System 4.0 
+ 4mb RAM 
+ 32 Bit Winsock i.e. Microsoft WindowsÆ 95/98 Dialup Networking, etc... WindowsÆ NT RAS
+
+?Installation Instructions
+ Since this is a self-installing file, this part is relatively simple.
+ -
+ First, click on the Start button on the windows desktop... 
+ Browse to where you downloaded the Pirch98.exe file, and click on it.
+ Click open, then click ok
+ Once the install starts, you will see several screens with options. It is HIGHLY recommended that you accept the default folders at this time. As you gain experience
+ with Pirch, you will understand the reason for this. Some of the add-on pils and scripts require these default directories to work properly. 
+ -
+ That's It!
+ Click start, programs, Pirch98, Pirch98 to get started!
+
+?To Copy and Paste
+ Highlight the text you want to copy.
+ Using your Left Mouse button hold it down while dragging your mouse over the text you want.
+ Then Release the mouse button and it will be copied.
+ Next is to go to the area you want to paste to.
+ Click and position the mouse cursor where you want to paste to.
+ Now Right click your mouse button and select Paste. 
+
+?To Setup your WWW tab
+ First, click on the WWW tab.
+ you'll see the Options button on the bottom of the WWW window...
+ click that...
+ On the next window, look for your browser's exe file with the .... ª .... arrow
+ Next you'll see two boxes on that window ... 
+ "Catch URL's from chat" (Put a check in this one)
+ and "Purge Unused URL's" (leave this one un-checked)
+ That's It!
+ Any live urls typed to the channel,will end up in your WWW tab, 
+ And you will be able to click a live url in a chat window and your browser will open and go there!
+
+?I see colors being used. How do I do that?
+ Type CONTROL-K followed by a number from 1 to 15.
+ To get a background color: CONTROL-KFG,BG
+ Where FG is a foreground color and BG is a background color
+  Color list:
+  1: Black        2: Dark Blue    3: Green        4: Red
+  5: Maroon       6: Purple       7: Khaki        8: Yellow
+  9: Lite Green  10: Teal        11: Cyan        12: Bright Blue
+ 13: Pink        14: Dark Grey   15: Light Grey
+ Examples:
+  foregrounds : \0030,1 0 \0031,0 1 \0032 2 \0033 3 \0034 4 \0035 5 \0036 6 \0037 7 \0038 8 \0039 9 \00310 10 \00311 11 \00312 12 \00313 13 \00314 14 \00315 15 \003
+  backgrounds : \0031,0 0 \00316,1 1 \0031,2 2 \0031,3 3 \0031,4 4 \0031,5 5 \0031,6 6 \0031,7 7 \0031,8 8 \0031,9 9 \0031,10 10 \0031,11 11
+
+?Setup Your Sounds Events.
+ Copy and paste the lines below to your events window. Make sure the long lines remain one line! 
+ If you copy/paste them from here, they should be. Don't forget to save when you're finished.
+ -
+ In Events level 000 : Unknowns-Away (this is disabled when you are at your computer)
+ -
+ ON NOTICE:!TSEND*:*:/dcc tsend $nick $soundpath $+ $2
+ -
+ ON NOTICE:!DCCSEND*:*:/dcc send $nick $soundpath $+ $2
+ -
+ ON NOTICE:@DCCSEND*:*:/dcc send $nick c:\pirch32\ascii\ $+ *2
+ -
+ ON DCCDONE:*.mod;*.mid;*.ra;*.avi:/playmedia done.wav | /notice $nick \-2 \-3 12Thanks \-3 2for \-3 4 $filename $+ , \-3 3increasing \-3 12my \-3 13media \-3
+ 6collection \-3 7by \-3 4 $filesize bytes \-3 12@ \-3 10 $rate \-3 7cps\-3 12 8-) | /timer soundbite 1 6 /playmedia $filename
+ -
+ ON DCCDONE:*.wav:/playmedia done.wav | /notice $nick \-2 \-3 12Thanks for \-3 4 $filename $+ , \-3 3increasing \-3 12my \-3 13media \-3 6collection \-3 7by \-3 4
+ $filesize bytes \-3 12@ \-3 10 $rate \-3 7cps \-3 12 8-) | /timer soundbite 1 6 /playmedia $filename
+ -
+ ON DCCFAIL:*.*: /filedel $fullfilename | /playmedia dccfail.wav
+ -
+ ON SOUND:*.*:*:/display > $activewin \-11 Sound $filename played by $nick on #
+ -
+ -
+ In Events level 100 : Unknowns-Present (this is disabled when you are away from your computer)
+ -
+ ON NOSOUND:*.*:#:/notice $nick !DCCSEND $filename |/display > # \-11 \-2 \-3 2Sound \-3 4 $filename \-3 3played \-3 12by \-3 13 $nick \-3 1on #
+ -
+ ON NOTICE:!TSEND*:*:/dcc tsend $nick $soundpath $+ $2
+ -
+ ON NOTICE:!DCCSEND*:*:/dcc send $nick $soundpath $+ $2
+ -
+ ON NOTICE:@DCCSEND*:*:/dcc send $nick c:\pirch32\ascii\ $+ *2
+ -
+ ON DCCDONE:*.mod;*.mid;*.ra;*.avi:/playmedia done.wav | /notice $nick \-2 \-3 12Thanks \-3 2for \-3 4 $filename $+ , \-3 3increasing \-3 12my \-3 13media \-3
+ 6collection \-3 7by \-3 4 $filesize bytes \-3 12@ \-3 10 $rate \-3 7cps\-3 12 8-) | /timer soundbite 1 6 /playmedia $filename
+ -
+ ON DCCDONE:*.wav:/playmedia done.wav | /notice $nick \-2 \-3 12Thanks for \-3 4 $filename $+ , \-3 3increasing \-3 12my \-3 13media \-3 6collection \-3 7by \-3 4
+ $filesize bytes \-3 12@ \-3 10 $rate \-3 7cps \-3 12 8-) | /timer soundbite 1 6 /playmedia $filename
+ -
+ ON DCCFAIL:*.*: /filedel $fullfilename | /playmedia dccfail.wav
+ -
+ ON SOUND:*.*:*:/display > $activewin \-11 Sound $filename played by $nick on #
+ -
+ -
+ You will need to make two aliases for this to work properly.
+ 1. name this F7 
+ /nick yournick-away (or brb, or afk, whatever)
+ /me will be right back
+ /enable 000
+ /disable 100
+ -
+ 2. name this F8
+ /enable 100
+ /disable 000
+ /nick yournick
+ /timer 1 1 6 /me is back
+ -
+ these will change your nickname when you have to be away for a few minutes
+ (lets others know you aren't there to answer them)
+ and turns off your auto get sounds event so you can't be flooded while you're gone
+ All you have to do when leaving for a few, is hit the F7 key at the top of your keyboard
+ And when you return, hit the F8 key. There IS a required amount of time between nick changes,
+ but only on some servers, and I do not know what it is. Probably a minute will work.
+
+?Fix for the "error creating window" bug
+ Edit your pirch32.ini file to read aliases=aliases.paf
+ and events=events.paf under [Main].
+ If the problem still persists, try
+ deleting \windows\pirchutil.ini.
+
+?How do you do on text events? Like to ping someone?
+ Add this to your events:
+ ON TEXT:!ping*:#:/ping $nick
+ ON TEXT      : The command to ake action on
+ !ping*       : The text to look for, at the beginning of the line.
+ #            : Channel to look for it. # means all channels
+ /ping $nick  : The command to do when they type it.
+
+?How do I add servers to my server connect list?
+ You can add a server by clicking on LOGIN, then
+ EDIT SERVER LIST, then  type in the server you
+ wish to add (eg: server.something.net). You dont
+ really need to change the PORT since most servers
+ accept 6667. Then , type in the ID. (ie: Starchat,
+ Undernet, Dalnet). Then, hit OK, then  CLOSE. Then,
+ when you click on the arrow to choose your server,
+ scroll down it should be on the bottom of the list.
+ To switch servers WHILE ONLINE, type in:
+ /server  new.server.here:6667. Keep in mind you WILL
+ disconnect from your current server if you do this.
+
+?How do I see which channels are here?
+ Type in  /list
+
+?How can I see the different servers available for
+the Net I am on/my server list is SO SMALL for this net?
+ Type in   /links ,    then ADD the servers you wish
+ into your server list (see Question 1)
+
+?Why do I keep getting server messages/ mass messages
+and how do I stop them?
+ Click on LOGIN, then UNcheck the box for  "receive server
+ messages", and  check in the box for "invisible on server".
+ If you are ALREADY logged online, type in:
+ /mode yournickname +i-s , and when you log offline, check
+ and uncheck the boxes mentioned earlier.
+
+?Sometimes I lose Ops in my channel when on Undernet
+or Dalnet etc. Why does pirch do that?
+ It is not a pirch problem. If the channel has X/W in there,
+ its quite possible that you are on numerics
+ (ie: *!*pirch@12.345.67) instead of your usual addy mask.
+ (ie: *!*pirch@*.user.com) This can be solved by simply
+ logging offline, closing pirch, and logging in again. It
+ has to do with the way the server reads your ISPs
+ information, and isnt a big deal.
+
+?How do I do "popups"?
+ Click on a nickname, then  RIGHT CLICK, and you will
+ see a popup menu. Choose the "slam" one for the demo.
+ That is a popup.
+
+?Where do I get popups?
+ 2 ways: FIRST: you can copy/paste from a channel window:
+ drag the mouse over all text you want copied, release
+ and wait for the highlight to disappear, then hit
+ CTRL/C, then click on the POPUPS icon  and choose the
+ CHANNEL(names list), then click INSIDE there, then hit
+ CTRL/V. YOU MUST PUT a  " .name " before it.
+ EXAMPLE: .LoveSymbol:/me  13úìùê*úìùê*úìùê*úìùê4 $$1 13úìùê*úìùê*úìùê*úìùê
+ Feel free to copy/paste that into your popups to test.
+ SECOND: ^Elviraa^ has a popup file that you can have.
+ Type in: !getpop and  she will send it to you. You will have to
+ replace your current "popups.irc" file with that one, and
+ rename it to "popups.irc". SAVE and RENAME your current
+ popups.irc file before doing this in case it does not work.
+
+?How do I play sounds?
+ Type in:  /sound #channelname filename.wav
+ (ie: /sound #PirchHelp laff.wav) You MUST have the
+ wav file to play the sound, and you MUST have the
+ correct path set in your preferences. Click on the
+ preferences icon, Choose either SOUNDS or MEDIA.
+ Check the boxes: "ignore if already playing sounds"
+ and "enable sounds".  Make sure you have the correct
+ "default sound path" typed in.
+
+?I am having trouble recieving DCC files. What wrong?
+ You need to edit your settings for DCCs. Click on
+ PREFERENCES, then DCC. If you have a 28.8 or faster
+ modem, edit your "packet size" to read  8192, and
+ your  "timeouts" for  both CHAT and FILE to 9999.
+ If you have a 14.4 modem, packet size should be
+ set to 4096.  MAKE SURE your default download paths
+ are the same as the path you have set in your
+ SOUNDS or MEDIA "default sound path", and UNcheck
+ the boxes for "autoaccept files" and "autoaccept chat".
+ You MAY check the boxes for "auto minimize DCC windows" ,
+ "auto close DCC windows upon completion" and "keep DCC
+ transaction log". If after modifying your settings you
+ still have trouble, disconnect and RESTART Pirch.
+
+?My fonts look retarded...help!
+ Click the PREFERENCES icon and choose FONTS. You can
+ edit your settings there.
+
+?Can I change the color of my screen and text?
+ YUP! Click on OPTIONS on your menu bar. Click on COLORS.
+ You can edit your settings there.
+
+?How do I change my nickname?
+ Type in:   /nick  YourNewNickname
+
+?How do I see if someone is online?
+ Type in:  /whois TheirNickname
+ If you know their *!*user@*.host.com, you can use
+ the USER part and type in: /who  TheUserPart
+ (example: for *!*Ehhh@*.blah.com you would type /who Ehhh )
+ Unless they are +i (invisible), you will get a list of
+ everyone online with that USER part.
+
+?Someone is bothering me and wont stop. HELP!
+ In pirch, all you have to do is type: /ignore nickname.
+ If later you wish to remove the ignore, click your
+ PREFERENCES icon, then choose IGNORE, click on their
+ nickname on the list, click REMOVE, then hit OK.
+
+?Can I direct downloads to a SPECIFIC directory?
+ Yes. Click on OPTIONS on your menu bar. Choose "Download
+ Extension Map".  Click ADD, then type in the file extensions
+ you wish to direct in this format: wav;mid (you MUST use the ; )
+ Then type in the directory you wish them to go to. Check the box
+ "Save to disk". If you need to use a helper-application to play
+ the file, such as a video player (for AVIs or MPGs), check
+ the box for EXECUTE HELPER APPLICATION and type in ITS path
+ (ie: C:\Netoob). THEN, click OK.
+
+?How come I don't get on the Web when I click on an "HTTP:\"
+in a chat window or channel?
+ Click on TOOLS on your menu bar, click on WORLD WIDE WEB LINKS,
+ then click OPTIONS, find your browser or type in the path
+ (ie: C:\iexplore), check the box "PURGE UNUSED URLs",  then click DONE.
+
+?Are there some basic settings I need to know about?
+ Yes. Click on your PREFERENCES icon, and put checks
+ in to following boxes:
+ * GENERAL:  "Private notice destination": ACTIVE WINDOW
+ * "Private notices/messages": USE DEDICATED MESSAGE WINDOWS
+ * MINIMIZE NEW MESSAGE WINDOWS
+ * BEEP ON PRIVATE MESSAGE
+ * "Scroll buffer size" : set this to: 230
+ * "Connections" :  AUTO RECONNECT ON DISCONNECT
+ * OPS: "Channel operator control panel" : SHOW OP CONTROL PANEL
+ * ALWAYS CONFIRM KICKS
+ * ALWAYS PROMPT FOR KICK MESSAGE
+ * "BAN METHOD" choose "Ident,server"
+ * SOUND/MEDIA: "Sound Options" : IGNORE IF ALREADY PLAYING SOUNDS
+ * ENABLE SOUNDS
+ * "Default sound path" : type in the correct path for your
+   sounds here (ie: C:\pirch)
+ * DCC: See Question 8
+ * CTCP:  Check the box: "AUTOMATIC CTCP FLOOD CONTROL"
+ * "Default CTCP Responses"  Type in whatever you like here.
+   Its what you will send to a user who ctcp-fingers you or
+   doeas a "userinfo" on you.
+ * FONTS: Set them to your liking
+ * FLOOD: "Flood control settings" : ENABLE FLOOD CONTROL
+ * Flood delay rate: set this to 2000
+ * Flood limit: set this to 3
+ * "CTCP Flood control" : ENABLE CTCP FLOOD CONTROL
+ * "Accept CTCP from an address no faster than..." : set this to 4000
+ * LOGS: If you wish to keep logs of chat windows,
+   channel windows, set these to your personal preferences.
+ * NOTIFY: Add the nicknames of people you wish to be
+   notified of when they log online here.
+ * CHECK the boxes for: ENABLE NOTIFY and  NOTIFY TO ACTIVE WINDOW
+ * IGNORE: Check the box: ENABLE IGNORE.
+ * AUTO-OP: Best to leave this alone, since you could OP
+   someone by accident who is using your friends nickname.
+ * PROTECT: Use this wisely. Check the boxes for ENABLE PROTECTION
+   and ENABLE BAN PROTECTION. Put nicknames in here
+   sparingly as it may cause problems with others
+   who may have set their  PROTECTION too.
+ * MISC: Check the boxes for: AUTO REJOIN IF KICKED and
+   AUTO RE-WRAP TEXT. Any others will be your own personal preference.
+ * "Default sign off message" : Type in what you want
+   to show when you hit "disconnect".
+   (ie: Bye bye everyone! See you all next time!)
+ * "Edit height adjust" : set this to  4
+ ***************ALWAYS CLICK "OK" AFTER EDITING YOUR PREFERENCES******
+
+?I want a Shut Up Kick to kick people whenever they say something.
+ (Scripting by Dr. Nibble (DrN)
+ In popups/Channel(nicklist):
+ -
+ Shut Up Kick
+ ..Add User:/addsu $$1
+ ..Remove User:/delsu $$1
+ -
+ Aliases Section:
+   Alias: /addsu
+ ; Add Shut Up Kick
+ /adduser -q 665 $1 2
+ /verbose notice $1 :  You talk too much. Shut up.
+ -
+   Alias: /delsu
+ ; Delete Shut Up Kick
+ /remuser -q 665 $1 2
+ /verbose notice $1 :  You may now speak.
+ -
+ Add in Events:  
+  665 : ShutUpKick
+ =@ON TEXT:*:#:/kick # $nick Shut up! You talk to much!
+ =@ON ACTION:*:#:/kick # $nick Shut up! You talk to much!
+
+?For some reason, media player wont drop down after I minimize it.
+ 1st: Close the Media Player
+ 2nd: Type /remini c:\windows\pirchutil.ini IrcMediaPlayer
+      (assuming windows directory is on C drive) Then RESTART Pirch.
+ 3rd: That particular bug can be prevented by making by making
+      sure media player is not rolled up when you exit Pirch.
